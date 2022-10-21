@@ -13,9 +13,9 @@ import java.util.UUID;
 public class GetAccounts {
 //test
     public static void main(String[] args) {
-        String accessKey = System.getenv("UPBIT_OPEN_API_ACCESS_KEY");
-        String secretKey = System.getenv("UPBIT_OPEN_API_SECRET_KEY");
-        String serverUrl = System.getenv("UPBIT_OPEN_API_SERVER_URL");
+        String accessKey = System.getenv("VFBBiFXuFfhMEzG2xLMbigRt5wCzRxVpwyUW29hh");
+        String secretKey = System.getenv("0ZOOvxd9GNgpO6IgKMM0xx0w26WkO4nLRM7ZjxIn");
+        String serverUrl = System.getenv("https://api.upbit.com");
 
         Algorithm algorithm = Algorithm.HMAC256(secretKey);
         String jwtToken = JWT.create()
