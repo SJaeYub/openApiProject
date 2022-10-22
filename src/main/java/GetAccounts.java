@@ -13,8 +13,8 @@ import java.util.UUID;
 public class GetAccounts {
 //test
     public static void main(String[] args) {
-        String accessKey = System.getenv("VFBBiFXuFfhMEzG2xLMbigRt5wCzRxVpwyUW29hh");
-        String secretKey = System.getenv("0ZOOvxd9GNgpO6IgKMM0xx0w26WkO4nLRM7ZjxIn");
+        String accessKey = System.getenv(".");
+        String secretKey = System.getenv(".");
         String serverUrl = System.getenv("https://api.upbit.com");
 
         Algorithm algorithm = Algorithm.HMAC256(secretKey);
