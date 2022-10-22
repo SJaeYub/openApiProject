@@ -8,14 +8,19 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
+import java.security.PrivateKey;
 import java.util.UUID;
+import personnelFolder.PersonnelKey;
 
 public class GetAccounts {
 //test
     public static void main(String[] args) {
-        String accessKey = System.getenv(".");
-        String secretKey = System.getenv(".");
-        String serverUrl = System.getenv("https://api.upbit.com");
+
+        PersonnelKey pk = new PersonnelKey();
+
+        String accessKey = pk.getAccKey();
+        String secretKey = pk.getSecKey();
+        String serverUrl = "https://api.upbit.com";
 
         Algorithm algorithm = Algorithm.HMAC256(secretKey);
         String jwtToken = JWT.create()
