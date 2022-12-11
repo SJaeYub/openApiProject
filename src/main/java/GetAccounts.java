@@ -6,14 +6,13 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
-
-import java.io.IOException;
-import java.security.PrivateKey;
-import java.util.UUID;
 import personnelFolder.PersonnelKey;
 
+import java.io.IOException;
+import java.util.UUID;
+
 public class GetAccounts {
-//test
+    //test
     public static void main(String[] args) {
 
         PersonnelKey pk = new PersonnelKey();
