@@ -46,6 +46,13 @@
             <version>20220924</version>
         </dependency>
 
+        <!-- 자바 백테스팅 라이브러리       -->
+        <dependency>
+            <groupId>org.ta4j</groupId>
+            <artifactId>ta4j-core</artifactId>
+            <version>0.15</version>
+        </dependency>
+
     </dependencies>
 
 
