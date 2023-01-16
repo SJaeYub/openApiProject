@@ -2,6 +2,7 @@ package backTesting;
 
 import org.ta4j.core.*;
 import org.ta4j.core.criteria.VersusBuyAndHoldCriterion;
+import org.ta4j.core.indicators.RSIIndicator;
 import org.ta4j.core.indicators.SMAIndicator;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
 import org.ta4j.core.num.Num;
@@ -19,7 +20,10 @@ public class PracticeTa4J {
 
         BarSeries series = new BaseBarSeriesBuilder().withName("AXP_stock").build();
 
-        series.addBar(ZonedDateTime.now(), 105.42, 112.99, 104.01, 111.42, 1337);
+        for (int i = 0; i < 50; i++) {
+            series.addBar(ZonedDateTime.now(), 105.42 + i, 112.99, 104.01, 111.42 + i, 1337);
+        }
+
 
         // Getting the close price of the ticks
         Num firstClosePrice = series.getBar(0).getClosePrice();
@@ -33,6 +37,12 @@ public class PracticeTa4J {
         SMAIndicator shortSma = new SMAIndicator(closePrice, 5);
 // Here is the 5-ticks-SMA value at the 42nd index
         System.out.println("5-ticks-SMA value at the 42nd index: " + shortSma.getValue(42).doubleValue());
+//       sma size
+        System.out.println("5-ticks-SMA size : " + shortSma.getBarSeries().getBarCount());
+
+        RSIIndicator shortRsi = new RSIIndicator(closePrice, 5);
+
+        System.out.println("5-ticks-RSI value at the 42nd index: " + shortRsi.getValue(42).doubleValue());
 
 // Getting a longer SMA (e.g. over the 30 last ticks)
         SMAIndicator longSma = new SMAIndicator(closePrice, 30);

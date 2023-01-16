@@ -44,6 +44,15 @@ public class Main {
         BaseBarSeries testBarSeries = new BaseBarSeriesBuilder().withName("test").build();
         testBarSeries.addBar(now, 105.42,112.99,104.01,111.42,1337);
 
-        System.out.println(testBarSeries.getBar(0));
+        BaseBarSeries series = new BaseBarSeries("my_live_series");
+
+        series.addBar(now, 105.42, 112.99, 104.01, 111.42, 1337);
+        series.addPrice(105.44);
+        series.addTrade(105.44, 100);
+        series.addTrade(105.44, 200);
+
+//        series.getBar(0).get
+
+        System.out.println(series.getBar(0).getTrades());
     }
 }
