@@ -2,6 +2,7 @@ package backTesting;
 
 import org.ta4j.core.*;
 import org.ta4j.core.criteria.VersusBuyAndHoldCriterion;
+import org.ta4j.core.criteria.WinningPositionsRatioCriterion;
 import org.ta4j.core.indicators.RSIIndicator;
 import org.ta4j.core.indicators.SMAIndicator;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
@@ -66,8 +67,16 @@ public class PracticeTa4J {
         Strategy strategy = new BaseStrategy(buyingRule, sellingRule);
 
         BarSeriesManager manager = new BarSeriesManager(series);
+
         TradingRecord tradingRecord = manager.run(strategy);
+//        tradingRecord.operate(2);
+//        System.out.println(tradingRecord.getLastTrade());
         System.out.println("Number of trades for our strategy: " + tradingRecord.getLastExit());
+
+        AnalysisCriterion criterion = new WinningPositionsRatioCriterion();
+        Num calculate = criterion.calculate(series, tradingRecord);
+        System.out.println("WinningPositionsRatioCriterion calculate : " + calculate);
+
 
 //        20221231 현재 깃에 올라온 버전과 일부 맞지 않아보임
         // Getting the profitable trades ratio
