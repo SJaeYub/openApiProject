@@ -5,9 +5,11 @@ import cmn.CSVReader;
 import org.ta4j.core.criteria.AbstractAnalysisCriterion;
 import org.ta4j.core.criteria.AverageReturnPerBarCriterion;
 import org.ta4j.core.criteria.WinningPositionsRatioCriterion;
+import org.ta4j.core.indicators.RSIIndicator;
 import org.ta4j.core.indicators.SMAIndicator;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
 import org.ta4j.core.num.Num;
+import org.ta4j.core.rules.BooleanRule;
 import org.ta4j.core.rules.CrossedDownIndicatorRule;
 import org.ta4j.core.rules.CrossedUpIndicatorRule;
 
@@ -36,11 +38,19 @@ public class practiceUsingData {
         }
 
         ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
-        SMAIndicator shortSma = new SMAIndicator(closePrice, 5);
-        SMAIndicator longSma = new SMAIndicator(closePrice, 30);
+        SMAIndicator shortSma = new SMAIndicator(closePrice, 34);
+        SMAIndicator longSma = new SMAIndicator(closePrice, 250);
+        RSIIndicator rsi = new RSIIndicator(closePrice, 10);
 
-        Rule buyingRule = new CrossedUpIndicatorRule(shortSma, longSma);
-        Rule sellingRule = new CrossedDownIndicatorRule(shortSma, longSma);
+//        for (int i = 0; i < rsi.getBarSeries().getBarCount(); i++) {
+//            System.out.println("RSIIndicator : " + rsi.getValue(i));
+//        }
+
+        Rule buyingRule = new CrossedUpIndicatorRule(closePrice, longSma)
+                .and(new CrossedUpIndicatorRule(closePrice, shortSma));
+//                .and(new BooleanRule(Integer.parseInt(String.valueOf(rsi.getValue(0))) > 20));
+        Rule sellingRule = new CrossedDownIndicatorRule(closePrice, longSma)
+                .and(new CrossedDownIndicatorRule(closePrice, shortSma));
 
         BaseStrategy baseStrategy = new BaseStrategy(buyingRule, sellingRule);
         BarSeriesManager manager = new BarSeriesManager(series);
