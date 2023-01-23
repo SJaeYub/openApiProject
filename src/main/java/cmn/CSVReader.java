@@ -1,3 +1,5 @@
+package cmn;
+
 import java.io.*;
 import java.util.*;
 
@@ -5,6 +7,13 @@ public class CSVReader {
 
     public static void main(String[] args) {
 
+        CSVReader csvReader = new CSVReader();
+        List<List<String>> lists = csvReader.readCSV("/Users/user/IdeaProjects/openApiProject/src/main/java/personnelFolder/bitstampUSD_1-min_data_2012-01-01_to_2021-03-31.csv");
+
+        for (int i = 0; i <= 10; i++) {
+            System.out.println(lists.get(i).get(0) + " " + lists.get(i).get(1) + " " + lists.get(i).get(2) + " " + lists.get(i).get(3) + " " + lists.get(i).get(4));
+
+        }
     }
 
     public List<List<String>> readCSV(String filePAth) {
