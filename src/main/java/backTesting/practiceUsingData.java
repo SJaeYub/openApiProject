@@ -1,17 +1,18 @@
 package backTesting;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.ta4j.core.*;
 import cmn.CSVReader;
 import org.ta4j.core.criteria.AbstractAnalysisCriterion;
 import org.ta4j.core.criteria.AverageReturnPerBarCriterion;
 import org.ta4j.core.criteria.WinningPositionsRatioCriterion;
+import org.ta4j.core.criteria.pnl.GrossReturnCriterion;
 import org.ta4j.core.indicators.RSIIndicator;
 import org.ta4j.core.indicators.SMAIndicator;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
 import org.ta4j.core.num.Num;
-import org.ta4j.core.rules.BooleanRule;
-import org.ta4j.core.rules.CrossedDownIndicatorRule;
-import org.ta4j.core.rules.CrossedUpIndicatorRule;
+import org.ta4j.core.rules.*;
 
 import java.time.Year;
 import java.time.ZoneId;
@@ -39,6 +40,11 @@ public class practiceUsingData {
 
         ClosePriceIndicator closePrice = new ClosePriceIndicator(series);
         SMAIndicator shortSma = new SMAIndicator(closePrice, 34);
+
+//        로거 찍는 법
+//        Logger logger = LoggerFactory.getLogger(this.getClass());
+
+
         SMAIndicator longSma = new SMAIndicator(closePrice, 250);
         RSIIndicator rsi = new RSIIndicator(closePrice, 10);
 
@@ -46,11 +52,18 @@ public class practiceUsingData {
 //            System.out.println("RSIIndicator : " + rsi.getValue(i));
 //        }
 
-        Rule buyingRule = new CrossedUpIndicatorRule(closePrice, longSma)
-                .and(new CrossedUpIndicatorRule(closePrice, shortSma));
-//                .and(new BooleanRule(Integer.parseInt(String.valueOf(rsi.getValue(0))) > 20));
-        Rule sellingRule = new CrossedDownIndicatorRule(closePrice, longSma)
-                .and(new CrossedDownIndicatorRule(closePrice, shortSma));
+//        for (int i = 0; i < rsi.getBarSeries().getBarCount(); i++) {
+//            System.out.println("close price bar series : " + closePrice.getValue(i));
+//            System.out.println(rsi.getValue(i));
+//        }
+
+        Rule buyingRule = new OverIndicatorRule(closePrice, longSma)
+                .and(new OverIndicatorRule(closePrice, shortSma))
+                .and(new CrossedUpIndicatorRule(rsi, 80));
+
+        Rule sellingRule = new UnderIndicatorRule(closePrice, longSma)
+                .and(new UnderIndicatorRule(closePrice, shortSma))
+                .and(new CrossedDownIndicatorRule(rsi, 20));
 
         BaseStrategy baseStrategy = new BaseStrategy(buyingRule, sellingRule);
         BarSeriesManager manager = new BarSeriesManager(series);
@@ -59,13 +72,20 @@ public class practiceUsingData {
 
 //        System.out.println(tradingRecord.getLastTrade());
 
-        AnalysisCriterion analysisCriterion = new AverageReturnPerBarCriterion();
-        Num analysisCalculate = analysisCriterion.calculate(series, tradingRecord);
-        System.out.println("AverageReturnPerBarCriterion calculate : " + analysisCalculate);
+        System.out.println("Number of positions for the strategy: " + tradingRecord.getPositionCount());
 
-        AnalysisCriterion criterion = new WinningPositionsRatioCriterion();
-        Num calculate = criterion.calculate(series, tradingRecord);
-        System.out.println("WinningPositionsRatioCriterion calculate : " + calculate);
+        // Analysis
+        System.out.println(
+                "Total return for the strategy: " + new GrossReturnCriterion().calculate(series, tradingRecord));
+
+
+//        AnalysisCriterion analysisCriterion = new AverageReturnPerBarCriterion();
+//        Num analysisCalculate = analysisCriterion.calculate(series, tradingRecord);
+//        System.out.println("AverageReturnPerBarCriterion calculate : " + analysisCalculate);
+//
+//        AnalysisCriterion criterion = new WinningPositionsRatioCriterion();
+//        Num calculate = criterion.calculate(series, tradingRecord);
+//        System.out.println("WinningPositionsRatioCriterion calculate : " + calculate);
 
     }
 
