@@ -29,12 +29,12 @@ public class practiceUsingData {
         BarSeries series = new BaseBarSeriesBuilder().withName("bitcoin").build();
 
         CSVReader csvReader = new CSVReader();
-        List<List<String>> lists = csvReader.readCSV("/Users/user/IdeaProjects/openApiProject/src/main/java/personnelFolder/BTC-USD.csv");
+        List<List<String>> lists = csvReader.readCSV("/Users/user/IdeaProjects/openApiProject/src/main/java/personnelFolder/FINAL_USO.csv");
 
         for (int i = 1; i < lists.size(); i++) {
             String[] parsedDate = parsingDate(lists.get(i).get(0));
             ZonedDateTime date = ZonedDateTime.of(Integer.parseInt(parsedDate[0]), Integer.parseInt(parsedDate[1]), Integer.parseInt(parsedDate[2])
-                    , 0, 0, 0, 0, ZoneId.of("Asia/Seoul"));
+                    , 0, 0, 0, 0, ZoneId.systemDefault());
             series.addBar(date, lists.get(i).get(1), lists.get(i).get(2), lists.get(i).get(3), lists.get(i).get(4));
         }
 
@@ -46,7 +46,7 @@ public class practiceUsingData {
 
 
         SMAIndicator longSma = new SMAIndicator(closePrice, 250);
-        RSIIndicator rsi = new RSIIndicator(closePrice, 10);
+        RSIIndicator rsi = new RSIIndicator(closePrice, 6);
 
 //        for (int i = 0; i < rsi.getBarSeries().getBarCount(); i++) {
 //            System.out.println("RSIIndicator : " + rsi.getValue(i));
@@ -59,18 +59,18 @@ public class practiceUsingData {
 
         Rule buyingRule = new OverIndicatorRule(closePrice, longSma)
                 .and(new OverIndicatorRule(closePrice, shortSma))
-                .and(new CrossedUpIndicatorRule(rsi, 80));
+                .and(new CrossedDownIndicatorRule(rsi, 40));
 
         Rule sellingRule = new UnderIndicatorRule(closePrice, longSma)
                 .and(new UnderIndicatorRule(closePrice, shortSma))
-                .and(new CrossedDownIndicatorRule(rsi, 20));
+                .and(new CrossedUpIndicatorRule(rsi, 60));
 
         BaseStrategy baseStrategy = new BaseStrategy(buyingRule, sellingRule);
         BarSeriesManager manager = new BarSeriesManager(series);
 
         TradingRecord tradingRecord = manager.run(baseStrategy);
 
-//        System.out.println(tradingRecord.getLastTrade());
+        System.out.println(tradingRecord.getPositions());
 
         System.out.println("Number of positions for the strategy: " + tradingRecord.getPositionCount());
 
