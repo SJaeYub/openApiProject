@@ -1,4 +1,4 @@
-package assetConrolStrategy;
+package assetConrolStrategy.common;
 
 
 import java.math.BigDecimal;
@@ -13,7 +13,7 @@ public class AssetVar {
     private BigDecimal fixedRiskAmt;
     private BigDecimal accountAmt;
     private BigDecimal assetTradingRatio;
-    private BigDecimal posTradingContractCnt;
+    private int posTradingContractCnt;
     private BigDecimal tradeRiskAmount;
 
     public BigDecimal getFixedRiskAmt() {
@@ -40,11 +40,11 @@ public class AssetVar {
         this.assetTradingRatio = assetTradingRatio;
     }
 
-    public BigDecimal getPosTradingContractCnt() {
+    public int getPosTradingContractCnt() {
         return posTradingContractCnt;
     }
 
-    public void setPosTradingContractCnt(BigDecimal posTradingContractCnt) {
+    public void setPosTradingContractCnt(int posTradingContractCnt) {
         this.posTradingContractCnt = posTradingContractCnt;
     }
 
