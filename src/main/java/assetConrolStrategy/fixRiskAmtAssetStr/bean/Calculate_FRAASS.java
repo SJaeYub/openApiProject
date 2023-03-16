@@ -4,9 +4,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 
-import static java.math.BigDecimal.ROUND_DOWN;
-
-public class Calculate {
+public class Calculate_FRAASS {
 
     public BigDecimal calculateFixedRiskAmt(BigDecimal accountAmt, int posTradingContractCnt) {
         BigDecimal result = new BigDecimal(BigInteger.ZERO);

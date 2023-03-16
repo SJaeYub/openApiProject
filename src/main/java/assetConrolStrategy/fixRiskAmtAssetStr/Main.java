@@ -1,7 +1,5 @@
-package assetConrolStrategy;
+package assetConrolStrategy.fixRiskAmtAssetStr;
 
-import assetConrolStrategy.common.AssetVar;
-import assetConrolStrategy.fixRiskAmtAssetStr.bean.Calculate;
 import assetConrolStrategy.fixRiskAmtAssetStr.service.FixRiskAmtAssetStrService;
 
 import java.math.BigDecimal;

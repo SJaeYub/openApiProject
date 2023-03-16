@@ -15,6 +15,42 @@ public class AssetVar {
     private BigDecimal assetTradingRatio;
     private int posTradingContractCnt;
     private BigDecimal tradeRiskAmount;
+    private BigDecimal fixAssetUnitPerContract;
+    private BigDecimal fixAssetUnit;
+    private BigDecimal maxCumulativeLoss;
+    private BigDecimal acceptableLossRatio;
+
+    public BigDecimal getFixAssetUnitPerContract() {
+        return fixAssetUnitPerContract;
+    }
+
+    public void setFixAssetUnitPerContract(BigDecimal fixAssetUnitPerContract) {
+        this.fixAssetUnitPerContract = fixAssetUnitPerContract;
+    }
+
+    public BigDecimal getFixAssetUnit() {
+        return fixAssetUnit;
+    }
+
+    public void setFixAssetUnit(BigDecimal fixAssetUnit) {
+        this.fixAssetUnit = fixAssetUnit;
+    }
+
+    public BigDecimal getMaxCumulativeLoss() {
+        return maxCumulativeLoss;
+    }
+
+    public void setMaxCumulativeLoss(BigDecimal axCumulativeLoss) {
+        this.maxCumulativeLoss = axCumulativeLoss;
+    }
+
+    public BigDecimal getAcceptableLossRatio() {
+        return acceptableLossRatio;
+    }
+
+    public void setAcceptableLossRatio(BigDecimal acceptableLossRatio) {
+        this.acceptableLossRatio = acceptableLossRatio;
+    }
 
     public BigDecimal getFixedRiskAmt() {
         return fixedRiskAmt;
