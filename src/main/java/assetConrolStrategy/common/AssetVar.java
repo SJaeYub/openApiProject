@@ -19,6 +19,70 @@ public class AssetVar {
     private BigDecimal fixAssetUnit;
     private BigDecimal maxCumulativeLoss;
     private BigDecimal acceptableLossRatio;
+    private BigDecimal delta;
+    private BigDecimal nextAccAmtLevel;
+    private BigDecimal currAccAmtLevel;
+    private int currTradingCtrCnt;
+    private BigDecimal initialMargin;
+    private BigDecimal buyingAmt;
+    private BigDecimal sellingAmt;
+    public BigDecimal getBuyingAmt() {
+        return buyingAmt;
+    }
+
+    public void setBuyingAmt(BigDecimal buyingAmt) {
+        this.buyingAmt = buyingAmt;
+    }
+
+    public BigDecimal getSellingAmt() {
+        return sellingAmt;
+    }
+
+    public void setSellingAmt(BigDecimal sellingAmt) {
+        this.sellingAmt = sellingAmt;
+    }
+
+
+    public BigDecimal getDelta() {
+        return delta;
+    }
+
+    public void setDelta(BigDecimal delta) {
+        this.delta = delta;
+    }
+
+    public BigDecimal getNextAccAmtLevel() {
+        return nextAccAmtLevel;
+    }
+
+    public void setNextAccAmtLevel(BigDecimal nextAccAmtLevel) {
+        this.nextAccAmtLevel = nextAccAmtLevel;
+    }
+
+    public BigDecimal getCurrAccAmtLevel() {
+        return currAccAmtLevel;
+    }
+
+    public void setCurrAccAmtLevel(BigDecimal currAccAmtLevel) {
+        this.currAccAmtLevel = currAccAmtLevel;
+    }
+
+    public int getCurrTradingCtrCnt() {
+        return currTradingCtrCnt;
+    }
+
+    public void setCurrTradingCtrCnt(int currTradingCtrCnt) {
+        this.currTradingCtrCnt = currTradingCtrCnt;
+    }
+
+    public BigDecimal getInitialMargin() {
+        return initialMargin;
+    }
+
+    public void setInitialMargin(BigDecimal initialMargin) {
+        this.initialMargin = initialMargin;
+    }
+
 
     public BigDecimal getFixAssetUnitPerContract() {
         return fixAssetUnitPerContract;
