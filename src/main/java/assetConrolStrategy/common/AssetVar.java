@@ -26,6 +26,44 @@ public class AssetVar {
     private BigDecimal initialMargin;
     private BigDecimal buyingAmt;
     private BigDecimal sellingAmt;
+    private int fixCntOfPosTrd;
+
+    public BigDecimal getEntryPrice() {
+        return entryPrice;
+    }
+
+    public void setEntryPrice(BigDecimal entryPrice) {
+        this.entryPrice = entryPrice;
+    }
+
+    public BigDecimal getStopPrice() {
+        return stopPrice;
+    }
+
+    public void setStopPrice(BigDecimal stopPrice) {
+        this.stopPrice = stopPrice;
+    }
+
+    public BigDecimal getFee() {
+        return fee;
+    }
+
+    public void setFee(BigDecimal fee) {
+        this.fee = fee;
+    }
+
+    private BigDecimal entryPrice;
+    private BigDecimal stopPrice;
+    private BigDecimal fee;
+
+    public int getFixCntOfPosTrd() {
+        return fixCntOfPosTrd;
+    }
+
+    public void setFixCntOfPosTrd(int fixCntOfPosTrd) {
+        this.fixCntOfPosTrd = fixCntOfPosTrd;
+    }
+
     public BigDecimal getBuyingAmt() {
         return buyingAmt;
     }
