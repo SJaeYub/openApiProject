@@ -1,3 +1,5 @@
+package callAPI;
+
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import org.apache.http.Header;
@@ -24,7 +26,7 @@ public class GetOrderBook {
     Algorithm algorithm;
     String jwtToken;
     String authenticationToken;
-//    private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(GetOrderBook.class);
+//    private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(callAPI.GetOrderBook.class);
 
     public GetOrderBook(String acc, String sec) {
         accessKey = acc;

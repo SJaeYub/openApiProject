@@ -1,13 +1,13 @@
+import callAPI.GetAccounts;
+import callAPI.GetOrderBook;
 import com.google.gson.JsonElement;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.ta4j.core.BaseBarSeries;
-import org.ta4j.core.BaseBarSeriesBuilder;
 import parsing.JsonArrayParser;
 import parsing.ParseJsonString;
 import personnelFolder.PersonnelKey;
+import tradingStrategy.TradingStrService;
 
-import java.time.ZonedDateTime;
 import java.util.List;
 
 public class Main {
@@ -20,16 +20,16 @@ public class Main {
         JsonArrayParser jsonArrayParser = new JsonArrayParser();    //JsonArray 일 때
 
 //       분캔들 테스트
-//        GetMinCandle minCandle = new GetMinCandle(pk.getAccKey(), pk.getSecKey());
-//        minCandle.init();
-//
-//        String minCandle1 = minCandle.getMinCandle("KRW-BTC", null, "1", "30");
-//        System.out.println(minCandle1);
-//        String subStr = minCandle1.substring(1, minCandle1.length());
-//
-//        JSONObject jsonObject = new JSONObject(subStr);
-//        String market = jsonObject.getString("market");
-//        System.out.println(market);
+        callAPI.GetMinCandle minCandle = new callAPI.GetMinCandle(pk.getAccKey(), pk.getSecKey());
+        minCandle.init();
+
+        String minCandle1 = minCandle.getMinCandle("KRW-BTC", null, "1", "30");
+        System.out.println(minCandle1);
+        String subStr = minCandle1.substring(1, minCandle1.length());
+
+        JSONObject jsonObject = new JSONObject(subStr);
+        String market = jsonObject.getString("market");
+        System.out.println(market);
 
         //호가 정보 조회 테스트
         GetOrderBook orderBook = new GetOrderBook(pk.getAccKey(), pk.getSecKey());
@@ -44,16 +44,23 @@ public class Main {
         }
 ////////////////////////////////////
 //
-////        마켓코드 조회 테스트
-//        GetMarketCodes marketCodes = new GetMarketCodes(pk.getAccKey(), pk.getSecKey());
-//        marketCodes.init();
-//
-//        String marketCodes1 = marketCodes.getMarketCodes(false);
-//        System.out.println(marketCodes1);
-//        subStr = marketCodes1.substring(1, marketCodes1.length());
-//        jsonObject = new JSONObject(subStr);
-//        market = jsonObject.getString("korean_name");
+//        마켓코드 조회 테스트
+
+        callAPI.GetMarketCodes marketCodes = new callAPI.GetMarketCodes(pk.getAccKey(), pk.getSecKey());
+        marketCodes.init();
+
+        String marketCodes1 = marketCodes.getMarketCodes(false);
+        System.out.println("[marketCode] : " + marketCodes1);
+        List<JsonElement> list1 = jsonArrayParser.parseJsonArray(marketCodes1);
+
+        for (JsonElement jsonElement : list1) {
+//            if(jsonElement.equals(""))
+            System.out.println("[MARKETCODE TO-BE] : " + jsonElement);
+        }
 //        System.out.println(market);
+
+//        JSONArray koreanName = jsonObject.getJSONArray("korean_name");
+//        System.out.println(koreanName);
 
 
 //        BaseBarSeries practice
@@ -73,5 +80,11 @@ public class Main {
 ////        series.getBar(0).get
 //
 //        System.out.println(series.getBar(0).getTrades());
+
+        TradingStrService tradingStrService = new TradingStrService();
+        String marketCode = tradingStrService.getMarketCode("KRW-XRP");
+        System.out.println(marketCode);
+
+        tradingStrService.tempReverseTrading();
     }
 }
