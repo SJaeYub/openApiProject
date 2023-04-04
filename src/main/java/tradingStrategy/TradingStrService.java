@@ -43,6 +43,7 @@ public class TradingStrService {
 
         int cnt = 0;
         BigDecimal init_enter_price = new BigDecimal(0);
+        BigDecimal init_sell_price = new BigDecimal(0);
 
         for (int i = 3; i < lists.size(); i++) {
 
@@ -76,18 +77,32 @@ public class TradingStrService {
             boolean curr_signal = determine_candle(today_open, today_close);
 
             //두 봉이 연속 양봉이면서 당일 봉이 음봉인 경우
-            if (pre_signal && !curr_signal && twoDaysAgo_signal) {
+            if (pre_signal && !curr_signal && twoDaysAgo_signal && !buy_position) {
                 buy_flag = true;
 
                 init_enter_price = yesterday_high;
-
+                init_sell_price = yesterday_low;
                 cnt = 1;
             }
 
-            if (buy_flag) {
+            if (buy_flag && !buy_position) {
                 if (init_enter_price.compareTo(today_high) == 1) {
-                    //buying
+                    //buying - 진입가격 ,직전 양봉 최저점 기록
+                    System.out.println("buying" + " " + today_close + " date : " + lists.get(i).get(0));
+                    buy_flag = false;
+                    buy_position = true;
+                    continue;
+                }
+            }
 
+            if (buy_position) {
+                if (today_low.compareTo(init_sell_price) == -1) {
+                    //selling
+                    System.out.println("selling" + " " + today_close + " date : " + lists.get(i).get(0));
+//                    sell_position = true;
+                    buy_position = false;
+                } else {
+                    init_sell_price = today_close;
                 }
             }
 
