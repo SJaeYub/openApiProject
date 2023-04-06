@@ -45,6 +45,13 @@ public class TradingStrService {
         BigDecimal init_enter_price = new BigDecimal(0);
         BigDecimal init_sell_price = new BigDecimal(0);
 
+        BigDecimal total_margin = new BigDecimal(0);
+        BigDecimal buyingPrice = new BigDecimal(0);
+        BigDecimal sellingPrice = new BigDecimal(0);
+
+        int trade_cnt = 0;
+        int pos_cnt = 0;
+
         for (int i = 3; i < lists.size(); i++) {
 
             if(cnt != 0 && cnt < 6) {
@@ -89,6 +96,7 @@ public class TradingStrService {
                 if (init_enter_price.compareTo(today_high) == 1) {
                     //buying - 진입가격 ,직전 양봉 최저점 기록
                     System.out.println("buying" + " " + today_close + " date : " + lists.get(i).get(0));
+                    buyingPrice = today_close;
                     buy_flag = false;
                     buy_position = true;
                     continue;
@@ -100,6 +108,14 @@ public class TradingStrService {
                     //selling
                     System.out.println("selling" + " " + today_close + " date : " + lists.get(i).get(0));
 //                    sell_position = true;
+                    sellingPrice = today_close;
+                    total_margin = total_margin.add(sellingPrice.subtract(buyingPrice));
+                    trade_cnt++;
+
+                    if (sellingPrice.compareTo(buyingPrice) == 1) {
+                        pos_cnt++;
+                    }
+
                     buy_position = false;
                 } else {
                     init_sell_price = today_close;
@@ -107,6 +123,11 @@ public class TradingStrService {
             }
 
         }
+
+        System.out.println("total margin : " + total_margin);
+        System.out.println("total trade cnt : " + trade_cnt);
+        System.out.println("total pos cnt : " + pos_cnt);
+        System.out.println("winningRate : " + pos_cnt%trade_cnt);
     }
 
     /**
