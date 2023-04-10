@@ -20,17 +20,24 @@ public class Main {
         JsonArrayParser jsonArrayParser = new JsonArrayParser();    //JsonArray 일 때
 
 //       분캔들 테스트
-        callAPI.GetMinCandle minCandle = new callAPI.GetMinCandle(pk.getAccKey(), pk.getSecKey());
-        minCandle.init();
+        for (int i = 0; i < 30; i++) {
+            callAPI.GetMinCandle minCandle = new callAPI.GetMinCandle(pk.getAccKey(), pk.getSecKey());
+            minCandle.init();
 
-        String minCandle1 = minCandle.getMinCandle("KRW-BTC", null, "1", "30");
-        System.out.println(minCandle1);
-        String subStr = minCandle1.substring(1, minCandle1.length());
+            String minCandle1 = minCandle.getMinCandle("KRW-BTC", null, "1", "1");
+            System.out.println(minCandle1);
+            String subStr = minCandle1.substring(1, minCandle1.length());
 
-        JSONObject jsonObject = new JSONObject(subStr);
-        String market = jsonObject.getString("market");
-        System.out.println(market);
+            JSONObject jsonObject = new JSONObject(subStr);
+            String market = jsonObject.getString("market");
+            System.out.println(market);
 
+            try {
+                Thread.sleep(6000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
         //호가 정보 조회 테스트
         GetOrderBook orderBook = new GetOrderBook(pk.getAccKey(), pk.getSecKey());
         orderBook.init();
